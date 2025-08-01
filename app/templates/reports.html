@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Reports</h1>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.start_date.label }}
+            {{ form.start_date }}
+        </p>
+        <p>
+            {{ form.end_date.label }}
+            {{ form.end_date }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+    {% if transactions %}
+    <hr>
+    <h2>Report Results</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>User</th>
+                <th>Medication</th>
+                <th>Type</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in transactions %}
+            <tr>
+                <td>{{ t.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>{{ t.user.username }}</td>
+                <td>{{ t.medication.name }}</td>
+                <td>{{ t.transaction_type }}</td>
+                <td>{{ t.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Hello, {{ current_user.username }}!</h1>
+
+    {% if low_stock_meds %}
+    <hr>
+    <h2>Low Stock Alerts</h2>
+    <ul>
+        {% for med in low_stock_meds %}
+        <li>
+            <a href="{{ url_for('main.medication', id=med.id) }}">
+                {{ med.name }} is low on stock! (Quantity: {{ med.quantity }}, Min Stock: {{ med.min_stock_level }})
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock %}
